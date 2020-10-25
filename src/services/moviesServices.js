@@ -7,6 +7,11 @@ export default class MoviesServices {
       timeout: 1000,
     })
   }
+
+  getAll() {
+    return this.apiClient.get('/movies');
+    // return ['hello', 'it me'];
+  }
 }
 
 export const moviesServices = new MoviesServices()
