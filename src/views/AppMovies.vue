@@ -2,7 +2,9 @@
 <div>
   <div v-if="filteredMovies.length">
     <div>
-      <span>Number of selected movies: {{ selectedMovies.length }}</span>
+      <p>Number of selected movies: {{ selectedMovies.length }}</p>
+      <button type="button" class="btn btn-success" @click="selectAll">Select all</button>
+      <button type="button" class="btn btn-danger" @click="deselectAll">Deselect all</button>
     </div>
     <div class="card-deck">
       <movie-row v-for="movie in filteredMovies" :key="movie.id" :movie=movie :isSelected="isMovieSelected(movie)" @movie-selected="handleMovieSelected"/>
@@ -52,6 +54,14 @@ export default {
     handleMovieSelected(movie) {
       if (this.isMovieSelected(movie)) return;
       this.selectedMovies.push(movie);
+    },
+
+    selectAll() {
+      this.selectedMovies = [...this.filteredMovies];
+    },
+
+    deselectAll() {
+      this.selectedMovies = [];
     }
   },
 
@@ -76,5 +86,9 @@ export default {
   margin-right: auto;
   margin-bottom: 50px;
   margin-top: 0;
+}
+
+.btn {
+  margin: 0 15px;
 }
 </style>
