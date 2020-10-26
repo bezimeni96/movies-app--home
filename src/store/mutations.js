@@ -1,6 +1,9 @@
 export const mutations = {
   setMovies(state, payload) {
-    console.log(payload);
     state.movies = payload;
+  },
+
+  setSearchText(state, payload) {
+    state.searchText = payload;
   }
 }

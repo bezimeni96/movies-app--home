@@ -1,6 +1,6 @@
 <template>
   <div class="card-deck">
-    <movie-row v-for="movie in movies" :key="movie.id" :movie=movie />
+    <movie-row v-for="movie in filteredMovies" :key="movie.id" :movie=movie />
   </div>
 </template>
 
@@ -18,12 +18,12 @@ export default {
 
   computed: {
     ...mapGetters([
-      'movies'
+      'filteredMovies'
     ])
   },
 
   created() {
-    this.movies;
+    this.filteredMovies;
   },
 
   beforeRouteEnter(to, from, next) {
