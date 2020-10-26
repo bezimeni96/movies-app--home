@@ -24,7 +24,8 @@ export default {
 
   methods: {
     ...mapMutations([
-      'setSearchText'
+      'setSearchText',
+      'setCurrentPage'
     ])
   },
 
@@ -35,6 +36,7 @@ export default {
   watch: {
     searchInput: function(newQuestion) {
       this.setSearchText(newQuestion);
+      this.setCurrentPage(1);
     }
   }
 }

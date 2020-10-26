@@ -18,11 +18,16 @@
     </div>
 
     <div class="card-deck">
-      <movie-row v-for="movie in sortedFilteredMovies" :key="movie.id" :movie=movie :isSelected="isMovieSelected(movie)" @movie-selected="handleMovieSelected"/>
+      <movie-row v-for="movie in moviesPage" :key="movie.id" :movie=movie :isSelected="isMovieSelected(movie)" @movie-selected="handleMovieSelected"/>
     </div>
+
+    <pagination style="margin:20px"
+      :numOfItems="sortedFilteredMovies.length"
+      @current-page-changed="goToPage"
+    />
   </div>
 
-  <div  v-else  class="alert alert-danger" role="alert">
+  <div v-else  class="alert alert-danger" role="alert">
     <p>Sorry!</p>
     <p>We don't have any movie with that search input.</p>
     <p>Please, try something else. Thanks!</p>
@@ -34,14 +39,16 @@
 
 <script>
 import { store } from '../store/movieStore';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import MovieRow from '../components/MovieRow';
+import pagination from '../components/paginations';
 
 export default {
   name: "AppMovies",
 
   components: {
     MovieRow,
+    pagination
   },
 
   data() {
@@ -54,10 +61,13 @@ export default {
 
   computed: {
     ...mapGetters([
-      'filteredMovies'                              
+      'filteredMovies',
+      'currentPage',
+      'PAGE_SIZE'                             
     ]),
 
     sortedFilteredMovies() {
+      this.goToPage(1);
       return this.filteredMovies
         .map((movie) => movie)
         .sort((movieA, movieB) => 
@@ -65,10 +75,22 @@ export default {
             ? this.sortingDirection
             : -1 * this.sortingDirection
         );
+    },
+
+    moviesPage() {
+      return this.sortedFilteredMovies.slice(
+        (this.currentPage - 1) * this.PAGE_SIZE,
+        this.currentPage * this.PAGE_SIZE
+      );
     }
   },
 
   methods: {
+    ...mapMutations([
+      'setCurrentPage',
+      'setPAGE_SIZE'
+    ]),
+
     isMovieSelected(movie) {
       const value = (this.selectedMovies.includes(movie) ? true : false);
       return value;
@@ -89,6 +111,10 @@ export default {
 
     changeSortingDirection() {
       this.sortingDirection *= -1;
+    },
+
+    goToPage(page) {
+      this.setCurrentPage(page);
     }
   },
 

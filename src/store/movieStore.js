@@ -11,6 +11,8 @@ export const store = new Vuex.Store({
   state: {
     movies: [],
     searchText: '',
+    currentPage: 1,
+    PAGE_SIZE: 5,
   },
 
   getters,
