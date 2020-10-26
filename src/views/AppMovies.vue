@@ -6,7 +6,7 @@
     <p>Please, try something else. Thanks!</p>
   </div>
   <div v-else class="card-deck">
-    <movie-row v-for="movie in filteredMovies" :key="movie.id" :movie=movie />
+    <movie-row v-for="movie in filteredMovies" :key="movie.id" :movie=movie :isSelected="isMovieSelected(movie)" @movie-selected="handleMovieSelected"/>
   </div>
 
 </div>
@@ -24,10 +24,29 @@ export default {
     MovieRow,
   },
 
+  data() {
+    return {
+      selectedMovies: [],
+    }
+  },
+
   computed: {
     ...mapGetters([
       'filteredMovies'
     ])
+  },
+
+  methods: {
+    isMovieSelected(movie) {
+      const value = (this.selectedMovies.includes(movie) ? true : false);
+      console.log(value);
+      return value;
+    },
+
+    handleMovieSelected(movie) {
+      if (this.isMovieSelected(movie)) return;
+      this.selectedMovies.push(movie);
+    }
   },
 
   created() {
