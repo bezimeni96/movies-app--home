@@ -6,8 +6,19 @@
       <button type="button" class="btn btn-success" @click="selectAll">Select all</button>
       <button type="button" class="btn btn-danger" @click="deselectAll">Deselect all</button>
     </div>
+
+    <div style="margin-top:20px">
+      <span>Sort movies by: </span>
+      <select v-model="sortingCriteria">
+        <option disabled >Select method..</option>
+        <option value="title" selected>Title</option>
+        <option value="duration">Duration</option>
+      </select>
+      <button class="btn btn-secondary btn-sort" @click="changeSortingDirection" :value="sortingDirection">{{ (sortingDirection == -1 ? 'desc' : 'asc') }}</button>
+    </div>
+
     <div class="card-deck">
-      <movie-row v-for="movie in filteredMovies" :key="movie.id" :movie=movie :isSelected="isMovieSelected(movie)" @movie-selected="handleMovieSelected"/>
+      <movie-row v-for="movie in sortedFilteredMovies" :key="movie.id" :movie=movie :isSelected="isMovieSelected(movie)" @movie-selected="handleMovieSelected"/>
     </div>
   </div>
 
@@ -36,13 +47,25 @@ export default {
   data() {
     return {
       selectedMovies: [],
+      sortingCriteria: 'title',
+      sortingDirection: -1,
     }
   },
 
   computed: {
     ...mapGetters([
-      'filteredMovies'
-    ])
+      'filteredMovies'                              
+    ]),
+
+    sortedFilteredMovies() {
+      return this.filteredMovies
+        .map((movie) => movie)
+        .sort((movieA, movieB) => 
+          movieA[this.sortingCriteria] < movieB[this.sortingCriteria]
+            ? this.sortingDirection
+            : -1 * this.sortingDirection
+        );
+    }
   },
 
   methods: {
@@ -62,6 +85,10 @@ export default {
 
     deselectAll() {
       this.selectedMovies = [];
+    },
+
+    changeSortingDirection() {
+      this.sortingDirection *= -1;
     }
   },
 
@@ -90,5 +117,9 @@ export default {
 
 .btn {
   margin: 0 15px;
+}
+
+.btn-sort{
+  width: 100px;
 }
 </style>
