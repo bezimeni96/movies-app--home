@@ -4,5 +4,14 @@ export const actions = {
   async fetchMovies(state) {
     const { data } = await moviesServices.getAll();
     state.commit('setMovies', data)
+  },
+
+  async addMovie(state, payload) {
+    try {
+      await moviesServices.add(payload);
+    } catch (error) {
+      return error.response.data.errors;
+      
+    }
   }
 }

@@ -1,7 +1,8 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import AppMovies from '../views/AppMovies.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
+import AppMovies from '../views/AppMovies.vue';
+import AddMovie from '../views/AddMovie';
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ const routes = [
     path: '/movies',
     name: 'movies',
     component: AppMovies
+  },
+  {
+    path: '/add',
+    name: 'add',
+    component: AddMovie
   }
 ]
 

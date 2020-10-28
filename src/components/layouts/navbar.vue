@@ -1,9 +1,10 @@
 <template>
   <nav class="navbar" id="nav">
     <div>
-      <router-link to="/" class="navbar-brand">Home</router-link> |
-      <router-link to="/about" class="navbar-brand">About</router-link> |
+      <router-link to="/" class="navbar-brand">Home</router-link>
+      <router-link to="/about" class="navbar-brand">About</router-link>
       <router-link to="/movies" class="navbar-brand">Movies</router-link>
+      <router-link to="/add" class="navbar-brand">Add movie</router-link>
     </div>
       <movie-search />
   </nav>
