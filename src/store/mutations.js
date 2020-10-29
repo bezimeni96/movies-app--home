@@ -13,5 +13,18 @@ export const mutations = {
 
   setPAGE_SIZE(state, payload) {
     state.PAGE_SIZE = payload;
+  },
+
+  setUser(state, payload) {
+    state.user = payload;
+  },
+
+  setToken(state, payload) {
+    state.token = payload
+  },
+
+  resetTokenUser(state) {
+    state.token = '';
+    state.user = {};
   }
 }

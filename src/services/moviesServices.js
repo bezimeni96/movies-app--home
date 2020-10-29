@@ -1,12 +1,6 @@
-import axios from 'axios';
+import AxiosService from './AxiosService';
 
-export default class MoviesServices {
-  constructor() {
-    this.apiClient = axios.create({
-      baseURL: 'http://localhost:8000/api',
-      timeout: 10000,
-    })
-  }
+export default class MoviesServices extends AxiosService{
 
   getAll() {
     return this.apiClient.get('/movies');

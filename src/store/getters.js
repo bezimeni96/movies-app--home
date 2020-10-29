@@ -10,4 +10,14 @@ export const getters = {
   currentPage: ({ currentPage }) => currentPage,
 
   PAGE_SIZE: ({ PAGE_SIZE }) => PAGE_SIZE,
+
+  user: ({ user }) => user,
+
+  token: ({ token }) => token,
+
+  isUserSetted: ({ user }) => {
+    console.log(user)
+    if (user) return true;
+    return false;
+  },
 }

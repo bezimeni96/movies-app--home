@@ -1,4 +1,5 @@
 import { moviesServices } from '../services/moviesServices';
+import { authService } from '../services/AuthService';
 
 export const actions = {
   async fetchMovies(state) {
@@ -13,5 +14,10 @@ export const actions = {
       return error.response.data.errors;
       
     }
+  },
+
+  async login(state, payload) {
+      const response = await authService.login(payload);
+      return response;
   }
 }

@@ -13,6 +13,9 @@ export const store = new Vuex.Store({
     searchText: '',
     currentPage: 1,
     PAGE_SIZE: 5,
+
+    token: '',
+    user: {},
   },
 
   getters,
