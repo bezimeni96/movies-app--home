@@ -6,7 +6,10 @@
       <router-link to="/movies" class="navbar-brand">Movies</router-link>
       <router-link to="/add" class="navbar-brand">Add movie</router-link>
       <a v-if="token.length" class="navbar-brand pointer"  @click.prevent="logoutUser">Logout</a>
-      <router-link v-else to="/login" class="navbar-brand">Login</router-link>
+      <div v-else>
+        <router-link to="/login" class="navbar-brand">Login</router-link>
+        <router-link to="/register" class="navbar-brand">Register</router-link>
+      </div>
     </div>
       <movie-search />
   </nav>
